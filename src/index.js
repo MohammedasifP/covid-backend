@@ -1,8 +1,9 @@
 const express=require('express');
 const mongoose=require('mongoose');
       require('dotenv').config()
-
+const cors=require('cors');
 const app=express();
+      app.use(cors())
 const connect=()=>{
     mongoose.connect("mongodb+srv://asif:asif_456@cluster0.ep2by.mongodb.net/covid?retryWrites=true&w=majority")
 }
