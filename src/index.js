@@ -1,7 +1,8 @@
 const express=require('express');
 const mongoose=require('mongoose');
-      require('dotenv').config()
+      require('dotenv').config()     
 const cors=require('cors');
+const fetch=require("node-fetch");
 const app=express();
       app.use(cors())
 const connect=()=>{
@@ -13,6 +14,15 @@ const {register,login}=require('./controllers/user.controller')
 
 app.post("/register",register)
 app.post("/login",login)
+
+app.get("/getdata",async(req,res)=>{
+    try {
+        const response=await fetch("https://api.covid19api.com/summary");
+        res.json(await response.json());
+    } catch (error) {
+        return res.status(500).send(error.message)
+    }
+});
 
 app.listen(process.env.PORT || 5500,async()=>{
     try {
